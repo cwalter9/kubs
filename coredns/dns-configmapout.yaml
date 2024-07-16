@@ -13,7 +13,7 @@ data:
            ttl 30
         }
         prometheus :9153
-        forward . /etc/resolv.conf {
+        forward . 192.168.80.11 {
            max_concurrent 1000
         }
         cache 30

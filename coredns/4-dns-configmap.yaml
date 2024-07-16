@@ -15,7 +15,7 @@ data:
           fallthrough in-addr.arpa ip6.arpa
         }
         prometheus :9153
-        forward . UPSTREAMNAMESERVER {
+        forward . 192.168.80.11 {
           max_concurrent 1000
         }
         cache 30
