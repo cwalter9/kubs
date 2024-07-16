@@ -15,7 +15,6 @@ spec:
   selector:
     k8s-app: kube-dns
     app.kubernetes.io/name: coredns
-  clusterIP: CLUSTER_DNS_IP
   ports:
   - name: dns
     port: 53
@@ -26,4 +25,4 @@ spec:
   - name: metrics
     port: 9153
     protocol: TCP
-
+    nodePort: 9153
