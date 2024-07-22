@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: ubuntu
+  name: ubuntu
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ubuntu
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ubuntu
+    spec:
+      containers:
+      - image: ubuntu
+        name: ubuntu
+        volumeMounts:
+        - name: ubuntu-volume
+          mountPath: /admin
+        command: ["/bin/sleep", "3650d"]
+        command: ["/admin/startup.sh"]
+        resources: {}
+      volumes:
+        - name: ubuntu-volume
+          nfs:
+             server: 192.168.80.16
+             path: /export
+#          persistentVolumeClaim:
+#            claimName: ubuntu-volume
+
