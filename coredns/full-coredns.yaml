@@ -59,18 +59,20 @@ data:
           lameduck 5s
         }
         ready
-        kubernetes CLUSTER_DOMAIN REVERSE_CIDRS {
-          fallthrough in-addr.arpa ip6.arpa
+        kubernetes cluster.local 10.in-addr.arpa in-addr.arpa ip6.arpa {
+             pods insecure
+             fallthrough in-addr.arpa ip6.arpa
+             ttl 30
         }
         prometheus :9153
-        forward . UPSTREAMNAMESERVER {
+        forward . 192.168.80.11 {
           max_concurrent 1000
         }
         cache 30
         loop
         reload
         loadbalance
-    }STUBDOMAINS
+    }
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -188,7 +190,7 @@ spec:
   selector:
     k8s-app: kube-dns
     app.kubernetes.io/name: coredns
-  clusterIP: CLUSTER_DNS_IP
+  clusterIP: 10.96.0.1
   ports:
   - name: dns
     port: 53
