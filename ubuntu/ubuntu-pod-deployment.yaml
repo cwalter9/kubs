@@ -30,7 +30,7 @@ spec:
         - name: ubuntu-volume
           nfs:
              server: 192.168.80.16
-             path: /export
+             path: /admin
 #          persistentVolumeClaim:
 #            claimName: ubuntu-volume
 
