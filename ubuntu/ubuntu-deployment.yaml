@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-ubuntu-deployment
+spec:
+  replicas: 2  # Adjust replicas based on your needs
+  selector:
+    matchLabels:
+      app: my-ubuntu-app
+  template:
+    metadata:
+      labels:
+        app: my-ubuntu-app
+    spec:
+      containers:
+      - name: ubuntu-container
+        image: ubuntu:latest
+#        command: ["/bin/bash", "-c", "while true; do echo Hello from pod; sleep 10; done"]
+    command: ["/bin/bash", "-c", "/mnt/nfs/startup.sh"]  # Replace with your script
+    volumeMounts:
+    - name: my-nfs-volume
+      mountPath: /mnt/nfs
+    - name: my-nfs-volume2
+      mountPath: /recordings
+  volumes:
+  - name: my-nfs-volume
+    persistentVolumeClaim:
+      claimName: my-nfs-pvc
+  - name: my-nfs-volume2
+    persistentVolumeClaim:
+      claimName: my-nfs-pvc2
+
