@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: my-nfs-pv
+spec:
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    path: /kubs/pv001
+    server: 192.168.80.16  # Replace with your NFS server IP
