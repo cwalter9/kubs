@@ -1,13 +1,23 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: ubuntu
-  labels:
-    app: ubuntu
+  name: my-pod
 spec:
   containers:
-  - name: ubuntu
+  - name: my-container
     image: ubuntu:latest
-    command: ["/bin/sleep", "3650d"]
-    imagePullPolicy: IfNotPresent
-  restartPolicy: Always
+#    command: ["/bin/sh", "-c", "while true; do echo Hello from pod; sleep 10; done"]  # Replace with your script
+    command: ["/bin/bash", "-c", "/mnt/nfs/startup.sh"]  # Replace with your script
+    volumeMounts:
+    - name: my-nfs-volume
+      mountPath: /mnt/nfs
+    - name: my-nfs-volume2
+      mountPath: /recordings
+  volumes:
+  - name: my-nfs-volume
+    persistentVolumeClaim:
+      claimName: my-nfs-pvc
+  - name: my-nfs-volume2
+    persistentVolumeClaim:
+      claimName: my-nfs-pvc2
+
